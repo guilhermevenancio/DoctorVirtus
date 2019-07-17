@@ -28,9 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="DoctorVirtus.Model">
-      <HintPath>..\DoctorVirtus.Model\bin\Debug\DoctorVirtus.Model.dll</HintPath>
-    </Reference>
+    <ProjectReference Include="..\DoctorVirtus.Model\DoctorVirtus.Model.csproj" />
   </ItemGroup>
 
   <ItemGroup>
