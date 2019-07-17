@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "388095852245",
+    "firebase_url": "https://atlanta-sistemas.firebaseio.com",
+    "project_id": "atlanta-sistemas",
+    "storage_bucket": "atlanta-sistemas.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:388095852245:android:2dbc10fde93b38fe",
+        "android_client_info": {
+          "package_name": "com.atlantasistemas.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "388095852245-al30pk67v2ete3pc0ar3kuk7q8pk8l23.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQbcWc5EVurS8cycxAx9ZfZVBqEkk_VyE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
