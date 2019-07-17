@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace AtlantaMobile.Views
+namespace DoctorVirtus.Aplicativo.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MenuPage : ContentPage
