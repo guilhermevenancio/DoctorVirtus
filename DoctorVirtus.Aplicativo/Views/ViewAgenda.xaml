@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:controls="clr-namespace:SuaveControls.Views;assembly=SuaveControls.FloatingActionButton"
+            xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+            x:Class="DoctorVirtus.Aplicativo.Views.ViewAgenda"
+            Title="Agenda">
+
+    <TabbedPage.ToolbarItems>
+        <ToolbarItem Text="Salvar"/>
+    </TabbedPage.ToolbarItems>
+    
+    <ContentPage Title="Principal">
+        <StackLayout Padding="10">
+
+            <Label Text="Nome do paciente"></Label>
+            <Entry x:Name="TxtPacienteNome"></Entry>
+            
+            <Label Text="Local de atendimento"></Label>
+            <Picker x:Name="CboLocalAtendimento" Title="Local de atendimento" ItemDisplayBinding="{Binding RazaoSocial}" SelectedIndex="0" SelectedIndexChanged="CboLocalAtendimento_SelectedIndexChanged" />
+
+            <Label Text="Operadora"></Label>
+            <Picker x:Name="CboOperadora" Title="Operadora" ItemDisplayBinding="{Binding Descricao}" SelectedIndex="0" SelectedIndexChanged="CboOperadora_SelectedIndexChanged" />
+
+            <Label Text="Tabela"></Label>
+            <Entry x:Name="TxtTabela" IsReadOnly="True" />
+
+            <Grid>
+                <Label Grid.Row="0" Grid.Column="0" Text="Data"></Label>
+                <DatePicker x:Name="DtpDataInicial" Grid.Row="1" Grid.Column="0"></DatePicker>
+                
+                <Label Grid.Row="0" Grid.Column="1" Text="Horário"></Label>
+                <TimePicker x:Name="DtpHoraInicial" Grid.Row="1" Grid.Column="1"></TimePicker>
+            </Grid>
+
+            <Label Text="Senha liberação"></Label>
+            <Entry x:Name="TxtSenha"></Entry>
+
+        </StackLayout>
+    </ContentPage>
+
+    <ContentPage Title="Procedimentos">
+        <StackLayout Padding="10">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="38" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="100" />
+                </Grid.ColumnDefinitions>
+
+                <Label Text="Procedimento" Grid.Row="0" Grid.Column="0"></Label>
+                <Entry x:Name="TxtProcedimentoID" Grid.Row="1" Grid.Column="0" Text="" HeightRequest="45" Keyboard="Numeric" Unfocused="TxtProcedimentoID_Unfocused" />
+
+                <Label Text="Valor" Grid.Row="0" Grid.Column="1"></Label>
+                <Entry x:Name="TxtValorProcedimento" Grid.Row="1" Grid.Column="1" Text="" HeightRequest="45" IsReadOnly="True" HorizontalTextAlignment="End" />
+            </Grid>
+
+            <Editor x:Name="TxtProcedimentoDescricao" Text="" HeightRequest="100"/>
+
+            <StackLayout HorizontalOptions="End">
+                <Button Text="+" BackgroundColor="DeepSkyBlue" Clicked="BtnAdicionarProcedimento_Clicked"></Button>
+            </StackLayout>
+
+            <ListView x:Name="ListViewProcedimento" RowHeight="50">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+
+                            <StackLayout>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="{Binding ItemDescricao}" HorizontalOptions="StartAndExpand"></Label>
+                                    <Button HorizontalOptions="EndAndExpand" 
+                                        BackgroundColor="Red" 
+                                        TextColor="Blue" 
+                                        Text="-" />
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="R$" HorizontalOptions="Start"></Label>
+                                    <Label Text="{Binding Valor}" HorizontalOptions="StartAndExpand"></Label>
+                                </StackLayout>
+                            </StackLayout>
+                           
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            
+        </StackLayout>
+    </ContentPage>
+
+
+    <ContentPage Title="Fotos">
+        <StackLayout Spacing="2">
+            <Grid Padding="10">
+                <ContentView>
+                    <ListView x:Name="ListView" RowHeight="160">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout Orientation="Horizontal">
+
+                                        <ffimageloading:CachedImage
+                                            HorizontalOptions="StartAndExpand"
+                                            Source="{Binding CaminhoImagem}"
+                                            CacheType="All"
+                                            DownsampleWidth="340"
+                                            DownsampleHeight="340"
+                                            DownsampleToViewSize="True">
+                                        </ffimageloading:CachedImage>
+
+                                        <Button
+                                            VerticalOptions="CenterAndExpand"
+                                            HorizontalOptions="EndAndExpand" 
+                                            BackgroundColor="White" 
+                                            TextColor="Blue" 
+                                            Text="Remover" 
+                                            Clicked="BtnRemoverImagem_Clicked" />
+
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </ContentView>
+                <controls:FloatingActionButton x:Name="FAB" 
+                    HorizontalOptions="EndAndExpand" 
+                    VerticalOptions="EndAndExpand" 
+                    Clicked="BtnAdicionarImagem_Clicked"
+                    Image="plus.png" 
+                    ButtonColor="#03A9F4"
+                    RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-75}"  
+                    RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-75}" />
+            </Grid>
+        </StackLayout>
+    </ContentPage>
+</TabbedPage>

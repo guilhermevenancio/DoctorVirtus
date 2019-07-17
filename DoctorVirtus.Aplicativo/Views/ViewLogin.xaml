@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DoctorVirtus.Aplicativo.Views.ViewLogin"
+             NavigationPage.HasNavigationBar="False">
+
+    <StackLayout Padding="20" Spacing="2">
+
+        <AbsoluteLayout Padding="15">
+            <Image x:Name="ImgLogo" Source="logo_completa.jpg" HorizontalOptions="Center"></Image>
+        </AbsoluteLayout>
+
+        <Label Text="Usuário"></Label>
+        <Entry x:Name="TxtUsuario" Text="" />
+
+        <Label Text="Senha"></Label>
+        <Entry x:Name="TxtSenha" Text="" IsPassword="True"/>
+
+        <StackLayout Orientation="Horizontal">
+            <Switch IsToggled="False"/>
+            <Label Text="Manter contectado" />
+        </StackLayout>
+        
+        <Grid Padding="15">
+            <Button Text="Entrar" Grid.Row="0" Grid.Column="0" BackgroundColor="DeepSkyBlue" Clicked="BtnEntrar_Clicked"></Button>
+            <Button Text="Sair" Grid.Row="0" Grid.Column="1" BackgroundColor="Red" Clicked="BtnSair_Clicked"></Button>
+        </Grid>
+        
+    </StackLayout>
+
+</ContentPage>

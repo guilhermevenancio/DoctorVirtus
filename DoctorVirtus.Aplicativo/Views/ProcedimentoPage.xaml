@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AtlantaMobile.Views.ProcedimentoPage">
+    <ContentPage.Content>
+        <StackLayout>
+
+            <Grid Padding="8">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="22" />
+                    <RowDefinition Height="34" />
+                    <RowDefinition Height="22" />
+                    <RowDefinition Height="34" />
+                    <RowDefinition Height="22" />
+                    <RowDefinition Height="34" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="75" />
+                    <ColumnDefinition Width="38" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+
+
+                <Label Text="Profissional" Grid.Row="0" Grid.Column="0"></Label>
+                <Entry x:Name="TxtUsuarioID" Grid.Row="1" Grid.Column="0" Text="" HeightRequest="45" Keyboard="Numeric" Unfocused="TxtTabelaID_Unfocused" />
+                <Entry x:Name="TxtUsuarioDescricao" Grid.Row="1" Grid.Column="2" Text="" HeightRequest="45" IsReadOnly="True" />
+                
+                <Label Text="Operadora" Grid.Row="2" Grid.Column="0"></Label>
+                <Entry x:Name="TxtOperadoraID" Grid.Row="3" Grid.Column="0" HeightRequest="45" Keyboard="Numeric" />
+                <Button x:Name="BtnProcurarOperadora" Grid.Row="3" Grid.Column="1" Margin="-5, 0, -5, 0" Text="..."  BackgroundColor="DeepSkyBlue" TextColor="Black" />
+                <Entry x:Name="TxtOperadoraDescricao" Grid.Row="3" Grid.Column="2" HeightRequest="45" IsReadOnly="True" />
+                
+                <Label Text="Tabela" Grid.Row="4" Grid.Column="0"></Label>
+                <Entry x:Name="TxtTabelaID" Grid.Row="5" Grid.Column="0" Text="" HeightRequest="45" Keyboard="Numeric" Unfocused="TxtTabelaID_Unfocused" />
+                <Button x:Name="BtnProcurarTabela" Grid.Row="5" Grid.Column="1" Margin="-5, 0, -5, 0" Image="search_26x26.png"  BackgroundColor="DeepSkyBlue" TextColor="Black" />
+                <Entry x:Name="TxtTabelaDescricao" Grid.Row="5" Grid.Column="2" Text="" HeightRequest="45" IsReadOnly="True" />
+
+                <Label Text="Procedimento" Grid.Row="6" Grid.Column="0"></Label>
+                <Entry x:Name="TxtProcedimentoID" Grid.Row="7" Grid.Column="0" Text=""  Keyboard="Numeric" />
+                <Button x:Name="BtnProcurarProcedimento" Grid.Row="7" Grid.Column="1" Margin="-5, 0, -5, 0" Image="search_26x26.png"  BackgroundColor="DeepSkyBlue" TextColor="Black" />
+                <Entry x:Name="TxtProcedimentoDescricao" Grid.Row="7" Grid.Column="2" Text="" HeightRequest="45" IsReadOnly="True" />
+
+                <Label Text="Local" Grid.Row="8" Grid.Column="0"></Label>
+                <Entry x:Name="TxtLocalID" Grid.Row="9" Grid.Column="0" HeightRequest="45" Keyboard="Numeric" />
+                <Button x:Name="BtnProcurarLocal" Grid.Row="9" Grid.Column="1" Margin="-5, 0, -5, 0" Text="..."  BackgroundColor="DeepSkyBlue" TextColor="Black" />
+                <Entry x:Name="TxtLocalDescricao" Grid.Row="9" Grid.Column="2" HeightRequest="45" IsReadOnly="True" />
+
+                <Label Text="Valor" Grid.Row="10" Grid.Column="0"></Label>
+                <Entry x:Name="TxtValor" Grid.Row="11" Grid.Column="0" HeightRequest="45" Keyboard="Numeric" />
+                
+            </Grid>
+
+            <Grid Padding="20">
+                <Button Text="Finalizar" Grid.Row="0" Grid.Column="0" BackgroundColor="DeepSkyBlue"></Button>
+                <Button Text="Sair" Grid.Row="0" Grid.Column="1" BackgroundColor="Red" IsVisible="False"></Button>
+            </Grid>
+            
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
