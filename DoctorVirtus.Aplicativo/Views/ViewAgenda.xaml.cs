@@ -76,7 +76,7 @@ namespace DoctorVirtus.Aplicativo.Views {
         }
 
         private void Salvar() {
-            using (_ContextoBD Contexto = new _ContextoBD()) {
+            using (_ContextoSQLite Contexto = new _ContextoSQLite()) {
 
                 var LocalAtendimento = (LocalAtendimento)CboLocalAtendimento.SelectedItem;
                 var Operadora = (Operadora)CboOperadora.SelectedItem;
@@ -233,14 +233,15 @@ namespace DoctorVirtus.Aplicativo.Views {
                 query.AppendLine("  , ProcedimentoItem.QuantidadeCH_UCO * Negociacao.ValorCH_UCO AS ValorProcedimento");
                 query.AppendLine("FROM Procedimento");
                 query.AppendLine("LEFT JOIN ProcedimentoItem ON Procedimento.ProcedimentoID = ProcedimentoItem.ProcedimentoID");
-                query.AppendLine("INNER JOIN Negociacao ON Negociacao.PrestadorID = 1 AND Negociacao.LocalAtendimentoID = @LocalAtendimentoID AND Negociacao.OperadoraID = @OperadoraID");
+                query.AppendLine("INNER JOIN Negociacao ON Negociacao.PrestadorID = @PrestadorID AND Negociacao.LocalAtendimentoID = @LocalAtendimentoID AND Negociacao.OperadoraID = @OperadoraID");
                 query.AppendLine("WHERE Procedimento.CodigoTUSS = @Referencia AND ProcedimentoItem.TabelaID = @TabelaID");
                 
                 DataSet ds = await Database.SQLite(query.ToString(), new object[,] {
                     {"@Referencia", TxtProcedimentoID.Text},
                     {"@LocalAtendimentoID", LocalAtendimento.LocalAtendimentoID},
                     {"@OperadoraID", Operadora.OperadoraID},
-                    {"@TabelaID", Tabela.TabelaID}
+                    {"@TabelaID", Tabela.TabelaID},
+                    {"@PrestadorID", App.PrestadorLogado.PrestadorID}
                 });
                 
                 TxtValorProcedimento.Text = string.Format("{0:0,0.00}", Math.Round(Convert.ToDecimal(ds.Tables[0].Rows[0]["ValorProcedimento"]), 2));
@@ -252,6 +253,12 @@ namespace DoctorVirtus.Aplicativo.Views {
         }
 
         private void BtnAdicionarProcedimento_Clicked(object sender, EventArgs e) {
+
+            TxtProcedimentoID.Text = "";
+            TxtValorProcedimento.Text = "";
+            TxtProcedimentoDescricao.Text = "";
+
+
             ListAgendaProcedimento.Add(new AgendaProcedimento() { AgendaID = null, ProcedimentoID = Convert.ToInt32(TxtProcedimentoID.Text), Procedimento = new Procedimento() { Descricao = TxtProcedimentoDescricao.Text}, Valor = Convert.ToDecimal(TxtValorProcedimento.Text) });
             ListViewProcedimento.ItemsSource = ListAgendaProcedimento;
         }

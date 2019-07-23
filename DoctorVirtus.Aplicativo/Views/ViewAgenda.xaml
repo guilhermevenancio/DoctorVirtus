@@ -1,47 +1,61 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:combobox="clr-namespace:Syncfusion.XForms.ComboBox;assembly=Syncfusion.SfComboBox.XForms"
+            xmlns:ListCollection="clr-namespace:System.Collections.Generic;assembly=mscorlib"
             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
             xmlns:controls="clr-namespace:SuaveControls.Views;assembly=SuaveControls.FloatingActionButton"
             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+            xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
             x:Class="DoctorVirtus.Aplicativo.Views.ViewAgenda"
             Title="Agenda">
 
     <TabbedPage.ToolbarItems>
         <ToolbarItem Text="Salvar"/>
     </TabbedPage.ToolbarItems>
-    
+
     <ContentPage Title="Principal">
         <StackLayout Padding="10">
 
-            <Label Text="Nome do paciente"></Label>
-            <Entry x:Name="TxtPacienteNome"></Entry>
-            
+            <inputLayout:SfTextInputLayout Hint="Nome do paciente" >
+                <Entry x:Name="TxtPacienteNome" Text="" />
+            </inputLayout:SfTextInputLayout>
+
+
             <Label Text="Local de atendimento"></Label>
             <Picker x:Name="CboLocalAtendimento" Title="Local de atendimento" ItemDisplayBinding="{Binding RazaoSocial}" SelectedIndex="0" SelectedIndexChanged="CboLocalAtendimento_SelectedIndexChanged" />
+
 
             <Label Text="Operadora"></Label>
             <Picker x:Name="CboOperadora" Title="Operadora" ItemDisplayBinding="{Binding Descricao}" SelectedIndex="0" SelectedIndexChanged="CboOperadora_SelectedIndexChanged" />
 
-            <Label Text="Tabela"></Label>
-            <Entry x:Name="TxtTabela" IsReadOnly="True" />
+
+            <inputLayout:SfTextInputLayout Hint="Tabela" >
+                <Entry x:Name="TxtTabela" Text="" IsReadOnly="True" />
+            </inputLayout:SfTextInputLayout>
+
 
             <Grid>
                 <Label Grid.Row="0" Grid.Column="0" Text="Data"></Label>
                 <DatePicker x:Name="DtpDataInicial" Grid.Row="1" Grid.Column="0"></DatePicker>
-                
+
                 <Label Grid.Row="0" Grid.Column="1" Text="Horário"></Label>
                 <TimePicker x:Name="DtpHoraInicial" Grid.Row="1" Grid.Column="1"></TimePicker>
             </Grid>
 
-            <Label Text="Senha liberação"></Label>
-            <Entry x:Name="TxtSenha"></Entry>
+
+            <inputLayout:SfTextInputLayout Hint="Senha liberação" >
+                <Entry x:Name="TxtSenha" Text="" />
+            </inputLayout:SfTextInputLayout>
+
 
         </StackLayout>
     </ContentPage>
 
     <ContentPage Title="Procedimentos">
         <StackLayout Padding="10">
+
             <Grid>
+
                 <Grid.RowDefinitions>
                     <RowDefinition Height="20" />
                     <RowDefinition Height="38" />
@@ -56,9 +70,10 @@
 
                 <Label Text="Valor" Grid.Row="0" Grid.Column="1"></Label>
                 <Entry x:Name="TxtValorProcedimento" Grid.Row="1" Grid.Column="1" Text="" HeightRequest="45" IsReadOnly="True" HorizontalTextAlignment="End" />
+
             </Grid>
 
-            <Editor x:Name="TxtProcedimentoDescricao" Text="" HeightRequest="100"/>
+            <Editor x:Name="TxtProcedimentoDescricao" Text="" HeightRequest="100" />
 
             <StackLayout HorizontalOptions="End">
                 <Button Text="+" BackgroundColor="DeepSkyBlue" Clicked="BtnAdicionarProcedimento_Clicked"></Button>
@@ -82,12 +97,12 @@
                                     <Label Text="{Binding Valor}" HorizontalOptions="StartAndExpand"></Label>
                                 </StackLayout>
                             </StackLayout>
-                           
+
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            
+
         </StackLayout>
     </ContentPage>
 

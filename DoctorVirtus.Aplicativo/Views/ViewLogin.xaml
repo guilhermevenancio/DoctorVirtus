@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DoctorVirtus.Aplicativo.Views.ViewLogin"
              NavigationPage.HasNavigationBar="False">
@@ -10,22 +11,27 @@
             <Image x:Name="ImgLogo" Source="logo_completa.jpg" HorizontalOptions="Center"></Image>
         </AbsoluteLayout>
 
-        <Label Text="Usuário"></Label>
-        <Entry x:Name="TxtUsuario" Text="" />
+        
+        <inputLayout:SfTextInputLayout Hint="Usuário" >
+            <Entry  x:Name="TxtUsuario" Text="" />
+        </inputLayout:SfTextInputLayout>
 
-        <Label Text="Senha"></Label>
-        <Entry x:Name="TxtSenha" Text="" IsPassword="True"/>
 
+        <inputLayout:SfTextInputLayout Hint="Senha" EnablePasswordVisibilityToggle="true" >
+            <Entry  x:Name="TxtSenha" Text="" />
+        </inputLayout:SfTextInputLayout>
+
+        
         <StackLayout Orientation="Horizontal">
             <Switch IsToggled="False"/>
             <Label Text="Manter contectado" />
         </StackLayout>
-        
+
         <Grid Padding="15">
             <Button Text="Entrar" Grid.Row="0" Grid.Column="0" BackgroundColor="DeepSkyBlue" Clicked="BtnEntrar_Clicked"></Button>
             <Button Text="Sair" Grid.Row="0" Grid.Column="1" BackgroundColor="Red" Clicked="BtnSair_Clicked"></Button>
         </Grid>
-        
+
     </StackLayout>
 
 </ContentPage>
