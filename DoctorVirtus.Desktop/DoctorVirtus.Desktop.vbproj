@@ -1,0 +1,532 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Xamarin.Forms.3.1.0.697729\build\netstandard2.0\Xamarin.Forms.props" Condition="Exists('..\packages\Xamarin.Forms.3.1.0.697729\build\netstandard2.0\Xamarin.Forms.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{26359EB4-98C2-4328-8330-7D787106796F}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <StartupObject>Sub Main</StartupObject>
+    <RootNamespace>DoctorVirtus.Desktop</RootNamespace>
+    <AssemblyName>DoctorVirtus.Desktop</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MyType>WindowsFormsWithCustomSubMain</MyType>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>DoctorVirtus.Desktop.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DocumentationFile>DoctorVirtus.Desktop.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Binary</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>Off</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>App\Utils\Icones\icone.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>39BC2F10BA5C1D69CE4056A0DE40ECE65216689B</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>AtlantaSistemas_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DoctorVirtus.Model">
+      <HintPath>..\DoctorVirtus.Model\bin\Debug\DoctorVirtus.Model.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Common, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.900.148\lib\net40\Microsoft.ReportViewer.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.DataVisualization, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.900.148\lib\net40\Microsoft.ReportViewer.DataVisualization.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Design, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.900.148\lib\net40\Microsoft.ReportViewer.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.900.148\lib\net40\Microsoft.ReportViewer.ProcessingObjectModel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.900.148\lib\net40\Microsoft.ReportViewer.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Types, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SqlServer.Types.14.0.314.76\lib\net40\Microsoft.SqlServer.Types.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Referências\Newtonsoft\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="RicherTextBox, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Referências\RicherTextBox\RicherTextBox.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Compression.Base, Version=17.1460.0.42, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <HintPath>..\packages\Syncfusion.Compression.Base.17.1.0.42\lib\net46\Syncfusion.Compression.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Core.WinForms, Version=16.4460.0.52, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Referências\Syncfusion\Syncfusion.Core.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Core.XForms, Version=17.2451.0.35, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Syncfusion.Xamarin.Core.17.2.0.35\lib\netstandard2.0\Syncfusion.Core.XForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.DataSource.WinForms, Version=16.4460.0.52, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Referências\Syncfusion\Syncfusion.DataSource.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.DocIO.Base, Version=16.4460.0.52, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Referências\Syncfusion\Syncfusion.DocIO.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Grid.Grouping.Base, Version=16.4460.0.52, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Referências\Syncfusion\Syncfusion.Grid.Grouping.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Grid.Grouping.Windows, Version=16.4460.0.52, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Referências\Syncfusion\Syncfusion.Grid.Grouping.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Grid.Windows, Version=16.4460.0.52, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Referências\Syncfusion\Syncfusion.Grid.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.GridCommon.WinForms, Version=16.4460.0.52, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Referências\Syncfusion\Syncfusion.GridCommon.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.GridHelperClasses.Windows, Version=16.4460.0.52, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Referências\Syncfusion\Syncfusion.GridHelperClasses.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Grouping.Base, Version=16.4460.0.52, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Referências\Syncfusion\Syncfusion.Grouping.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Licensing, Version=17.2460.0.35, Culture=neutral, PublicKeyToken=632609b4d040f6b4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Syncfusion.Licensing.17.2.0.35\lib\net46\Syncfusion.Licensing.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Pdf.Base, Version=16.4460.0.52, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Referências\Syncfusion\Syncfusion.Pdf.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.PdfViewer.Windows, Version=16.4460.0.52, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Referências\Syncfusion\Syncfusion.PdfViewer.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.SfComboBox.XForms, Version=17.2451.0.35, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Syncfusion.Xamarin.SfComboBox.17.2.0.35\lib\netstandard2.0\Syncfusion.SfComboBox.XForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.SfInput.WinForms, Version=16.4460.0.52, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Referências\Syncfusion\Syncfusion.SfInput.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.SfListView.WinForms, Version=16.4460.0.52, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Referências\Syncfusion\Syncfusion.SfListView.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Shared.Base, Version=16.4460.0.52, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Referências\Syncfusion\Syncfusion.Shared.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Shared.Windows, Version=16.4460.0.52, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Referências\Syncfusion\Syncfusion.Shared.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Tools.Base, Version=16.4460.0.52, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Referências\Syncfusion\Syncfusion.Tools.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Tools.Windows, Version=16.4460.0.52, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Referências\Syncfusion\Syncfusion.Tools.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.XlsIO.ClientProfile, Version=16.4400.0.52, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <HintPath>..\packages\Syncfusion.XlsIO.ClientProfile.16.4.0.52\lib\net40\Syncfusion.XlsIO.ClientProfile.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="Xamarin.Forms.Core, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xamarin.Forms.3.1.0.697729\lib\netstandard2.0\Xamarin.Forms.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Forms.Platform, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xamarin.Forms.3.1.0.697729\lib\netstandard2.0\Xamarin.Forms.Platform.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Forms.Xaml, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xamarin.Forms.3.1.0.697729\lib\netstandard2.0\Xamarin.Forms.Xaml.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Drawing" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Windows.Forms" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Xml.Linq" />
+    <Import Include="System.Threading.Tasks" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App.vb" />
+    <Compile Include="App\Atualizacao\FrmAtualizacaoDatabase.Designer.vb">
+      <DependentUpon>FrmAtualizacaoDatabase.vb</DependentUpon>
+    </Compile>
+    <Compile Include="App\Atualizacao\FrmAtualizacaoDatabase.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="App\Atualizacao\FrmAtualizacaoSistema.Designer.vb">
+      <DependentUpon>FrmAtualizacaoSistema.vb</DependentUpon>
+    </Compile>
+    <Compile Include="App\Atualizacao\FrmAtualizacaoSistema.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="App\Utils\BuscarCEP.vb" />
+    <Compile Include="Models\Migration\Configuration.vb" />
+    <Compile Include="Models\_ContextoBD.vb" />
+    <Compile Include="Views\Cadastros\ViewNegociacao.designer.vb">
+      <DependentUpon>ViewNegociacao.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Cadastros\ViewNegociacao.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Cadastros\ViewLocalAtendimento.designer.vb">
+      <DependentUpon>ViewLocalAtendimento.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Cadastros\ViewLocalAtendimento.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Cadastros\ViewImposto.designer.vb">
+      <DependentUpon>ViewImposto.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Cadastros\ViewImposto.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Cadastros\ViewUsuario.designer.vb">
+      <DependentUpon>ViewUsuario.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Cadastros\ViewUsuario.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Cadastros\ViewTabela.designer.vb">
+      <DependentUpon>ViewTabela.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Cadastros\ViewTabela.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Cadastros\ViewPrestador.designer.vb">
+      <DependentUpon>ViewPrestador.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Cadastros\ViewPrestador.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Cadastros\ViewOperadora.designer.vb">
+      <DependentUpon>ViewOperadora.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Cadastros\ViewOperadora.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Cadastros\ViewProcedimento.designer.vb">
+      <DependentUpon>ViewProcedimento.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Cadastros\ViewProcedimento.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\ViewSaude.Designer.vb">
+      <DependentUpon>ViewSaude.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ViewSaude.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="App\Comum\FrmEnviarEmail.Designer.vb">
+      <DependentUpon>FrmEnviarEmail.vb</DependentUpon>
+    </Compile>
+    <Compile Include="App\Comum\FrmEnviarEmail.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="App\Comum\FrmReportViewer.designer.vb">
+      <DependentUpon>FrmReportViewer.vb</DependentUpon>
+    </Compile>
+    <Compile Include="App\Comum\FrmReportViewer.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="App\Dialogs\FrmErro.Designer.vb">
+      <DependentUpon>FrmErro.vb</DependentUpon>
+    </Compile>
+    <Compile Include="App\Dialogs\FrmErro.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="App\Dialogs\FrmPesquisa.designer.vb">
+      <DependentUpon>FrmPesquisa.vb</DependentUpon>
+    </Compile>
+    <Compile Include="App\Dialogs\FrmPesquisa.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="App\Dialogs\FrmReconectando.Designer.vb">
+      <DependentUpon>FrmReconectando.vb</DependentUpon>
+    </Compile>
+    <Compile Include="App\Dialogs\FrmReconectando.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="App\Dialogs\FrmReconectandoMaskedDialog .Designer.vb">
+      <DependentUpon>FrmReconectandoMaskedDialog .vb</DependentUpon>
+    </Compile>
+    <Compile Include="App\Dialogs\FrmReconectandoMaskedDialog .vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="App\Dialogs\MaskedDialog.Designer.vb">
+      <DependentUpon>MaskedDialog.vb</DependentUpon>
+    </Compile>
+    <Compile Include="App\Dialogs\MaskedDialog.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="App\Utils\Class\Database.vb" />
+    <Compile Include="App\Utils\ExceptionHelper.vb" />
+    <Compile Include="App\Utils\HandleDynamic.vb" />
+    <Compile Include="App\Utils\Class\Office.vb" />
+    <Compile Include="App\Utils\Class\Parse.vb" />
+    <Compile Include="App\Utils\Module\Sistema.vb" />
+    <Compile Include="App\Utils\Resources\EmbeddedAssembly.vb" />
+    <Compile Include="Views\ViewLogin.Designer.vb">
+      <DependentUpon>ViewLogin.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ViewLogin.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="App\Atualizacao\FrmAtualizacaoDatabase.resx">
+      <DependentUpon>FrmAtualizacaoDatabase.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="App\Atualizacao\FrmAtualizacaoSistema.resx">
+      <DependentUpon>FrmAtualizacaoSistema.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Cadastros\ViewNegociacao.resx">
+      <DependentUpon>ViewNegociacao.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Cadastros\ViewLocalAtendimento.resx">
+      <DependentUpon>ViewLocalAtendimento.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Cadastros\ViewImposto.resx">
+      <DependentUpon>ViewImposto.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Cadastros\ViewUsuario.resx">
+      <DependentUpon>ViewUsuario.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Cadastros\ViewTabela.resx">
+      <DependentUpon>ViewTabela.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Cadastros\ViewPrestador.resx">
+      <DependentUpon>ViewPrestador.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Cadastros\ViewOperadora.resx">
+      <DependentUpon>ViewOperadora.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Cadastros\ViewProcedimento.resx">
+      <DependentUpon>ViewProcedimento.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\ViewSaude.resx">
+      <DependentUpon>ViewSaude.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="App\Comum\FrmEnviarEmail.resx">
+      <DependentUpon>FrmEnviarEmail.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="App\Comum\FrmReportViewer.resx">
+      <DependentUpon>FrmReportViewer.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="App\Dialogs\FrmErro.resx">
+      <DependentUpon>FrmErro.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="App\Dialogs\FrmPesquisa.resx">
+      <DependentUpon>FrmPesquisa.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="App\Dialogs\FrmReconectando.resx">
+      <DependentUpon>FrmReconectando.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="App\Dialogs\FrmReconectandoMaskedDialog .resx">
+      <DependentUpon>FrmReconectandoMaskedDialog .vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="App\Dialogs\MaskedDialog.resx">
+      <DependentUpon>MaskedDialog.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\ViewLogin.resx">
+      <DependentUpon>ViewLogin.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+    <EmbeddedResource Include="App.config">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="App\Utils\Resources\Sem_Imagem.jpeg" />
+    <Content Include="App\Utils\Icones\atlantasistemas_whatsapp.png" />
+    <Content Include="App\Utils\Icones\icone.ico" />
+    <Content Include="App\Utils\Icones\icons8-analyze-22.png" />
+    <Content Include="App\Utils\Icones\icons8-caixa-de-papelão-36.png" />
+    <Content Include="App\Utils\Icones\icons8-cancelar-36.png" />
+    <Content Include="App\Utils\Icones\icons8-conhecimento-transporte-eletronica-36.png" />
+    <Content Include="App\Utils\Icones\icons8-cupom-fiscal-eletronica-36.png" />
+    <Content Include="App\Utils\Icones\icons8-dinheiro-na-mão-36.png" />
+    <Content Include="App\Utils\Icones\icons8-edit-image-24.png" />
+    <Content Include="App\Utils\Icones\icons8-editar-propriedade-36.png" />
+    <Content Include="App\Utils\Icones\icons8-em-alta-36.png" />
+    <Content Include="App\Utils\Icones\icons8-futuros-36.png" />
+    <Content Include="App\Utils\Icones\icons8-grupo-de-usuários-36.png" />
+    <Content Include="App\Utils\Icones\icons8-moderador-masculino-36.png" />
+    <Content Include="App\Utils\Icones\icons8-nota-fiscal-eletronica-36.png" />
+    <Content Include="App\Utils\Icones\icons8-organização-36.png" />
+    <Content Include="App\Utils\Icones\icons8-pesquisa-36.png" />
+    <Content Include="App\Utils\Icones\icons8-trabalho-remoto-36.png" />
+    <Content Include="App\Utils\Icones\icons8-usuário-36.png" />
+    <Content Include="App\Utils\Icones\logo.png" />
+    <Content Include="App\Utils\Icones\logo212x192.png" />
+    <Content Include="App\Utils\Icones\logo_branca.png" />
+    <Content Include="App\Utils\Icones\logo_completa.png" />
+    <Content Include="App\Utils\Icones\logo_fundobranco.png" />
+    <EmbeddedResource Include="App\Utils\Resources\carregando.gif" />
+    <EmbeddedResource Include="Referências\Newtonsoft\Newtonsoft.Json.dll" />
+    <EmbeddedResource Include="Referências\RicherTextBox\RicherTextBox.dll" />
+    <EmbeddedResource Include="Referências\Syncfusion\Syncfusion.Compression.Base.dll" />
+    <EmbeddedResource Include="Referências\Syncfusion\Syncfusion.Core.WinForms.dll" />
+    <EmbeddedResource Include="Referências\Syncfusion\Syncfusion.DataSource.WinForms.dll" />
+    <EmbeddedResource Include="Referências\Syncfusion\Syncfusion.DocIO.Base.dll" />
+    <EmbeddedResource Include="Referências\Syncfusion\Syncfusion.Grid.Grouping.Base.dll" />
+    <EmbeddedResource Include="Referências\Syncfusion\Syncfusion.Grid.Grouping.Windows.dll" />
+    <EmbeddedResource Include="Referências\Syncfusion\Syncfusion.Grid.Windows.dll" />
+    <EmbeddedResource Include="Referências\Syncfusion\Syncfusion.GridCommon.WinForms.dll" />
+    <EmbeddedResource Include="Referências\Syncfusion\Syncfusion.GridHelperClasses.Windows.dll" />
+    <EmbeddedResource Include="Referências\Syncfusion\Syncfusion.Grouping.Base.dll" />
+    <EmbeddedResource Include="Referências\Syncfusion\Syncfusion.Licensing.dll" />
+    <EmbeddedResource Include="Referências\Syncfusion\Syncfusion.Pdf.Base.dll" />
+    <EmbeddedResource Include="Referências\Syncfusion\Syncfusion.PdfViewer.Windows.dll" />
+    <EmbeddedResource Include="Referências\Syncfusion\Syncfusion.SfInput.WinForms.dll" />
+    <EmbeddedResource Include="Referências\Syncfusion\Syncfusion.SfListView.WinForms.dll" />
+    <EmbeddedResource Include="Referências\Syncfusion\Syncfusion.Shared.Base.dll" />
+    <EmbeddedResource Include="Referências\Syncfusion\Syncfusion.Shared.Windows.dll" />
+    <EmbeddedResource Include="Referências\Syncfusion\Syncfusion.Tools.Base.dll" />
+    <EmbeddedResource Include="Referências\Syncfusion\Syncfusion.Tools.Windows.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.6.1 %28x86 e x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Este projeto faz referência a pacotes do NuGet que não estão presentes neste computador. Use a Restauração de Pacotes do NuGet para baixá-los.  Para obter mais informações, consulte http://go.microsoft.com/fwlink/?LinkID=322105. O arquivo ausente é {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Xamarin.Forms.3.1.0.697729\build\netstandard2.0\Xamarin.Forms.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Xamarin.Forms.3.1.0.697729\build\netstandard2.0\Xamarin.Forms.props'))" />
+    <Error Condition="!Exists('..\packages\Xamarin.Forms.3.1.0.697729\build\netstandard2.0\Xamarin.Forms.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Xamarin.Forms.3.1.0.697729\build\netstandard2.0\Xamarin.Forms.targets'))" />
+  </Target>
+  <Import Project="..\packages\Xamarin.Forms.3.1.0.697729\build\netstandard2.0\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.3.1.0.697729\build\netstandard2.0\Xamarin.Forms.targets')" />
+</Project>
