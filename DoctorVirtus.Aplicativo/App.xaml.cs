@@ -18,6 +18,8 @@ namespace DoctorVirtus.Aplicativo {
 
         public App(string dbPath) {
             InitializeComponent();
+
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MTI0MzA1QDMxMzcyZTMyMmUzMEZwZG1XNjBoaCtQcUFBS1duMmtJWThiYWx6cTRqNjQ3RjR4NG01MFFBcFU9");
             
             DatabaseInit(dbPath);
 
