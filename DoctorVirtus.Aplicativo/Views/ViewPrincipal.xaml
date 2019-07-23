@@ -9,7 +9,7 @@
         <ListView x:Name="ListView" ItemTapped="ListView_ItemTapped">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <ViewCell>
+                    <ViewCell Height="30">
                         <StackLayout Padding="20">
                             <Label Text="{Binding Text}" 
                                 LineBreakMode="NoWrap" 

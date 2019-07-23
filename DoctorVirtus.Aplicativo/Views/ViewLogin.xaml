@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
 xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:syncfusion="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
              x:Class="DoctorVirtus.Aplicativo.Views.ViewLogin"
              NavigationPage.HasNavigationBar="False">
 
@@ -17,15 +18,12 @@ xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Sync
         </inputLayout:SfTextInputLayout>
 
 
-        <inputLayout:SfTextInputLayout Hint="Senha" EnablePasswordVisibilityToggle="true" >
+        <inputLayout:SfTextInputLayout Hint="Senha" EnablePasswordVisibilityToggle="False" >
             <Entry  x:Name="TxtSenha" Text="" />
         </inputLayout:SfTextInputLayout>
 
         
-        <StackLayout Orientation="Horizontal">
-            <Switch IsToggled="False"/>
-            <Label Text="Manter contectado" />
-        </StackLayout>
+        <syncfusion:SfCheckBox x:Name="checkBox" IsChecked="False" Text="Manter conectado"/>
 
         <Grid Padding="15">
             <Button Text="Entrar" Grid.Row="0" Grid.Column="0" BackgroundColor="DeepSkyBlue" Clicked="BtnEntrar_Clicked"></Button>

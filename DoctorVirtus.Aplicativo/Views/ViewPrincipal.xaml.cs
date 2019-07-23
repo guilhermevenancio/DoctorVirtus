@@ -2,6 +2,7 @@
 using Xamarin.Forms.Xaml;
 using AtlantaMobile.Models;
 using System.Collections.Generic;
+using DoctorVirtus.Aplicativo.Plugins;
 
 namespace DoctorVirtus.Aplicativo.Views
 {
@@ -24,7 +25,7 @@ namespace DoctorVirtus.Aplicativo.Views
             var Items = new List<Item>
             {
                 new Item { Id = 1, Text = "Minha agenda", Description = "Resumo de vendas" },
-                new Item { Id = 2, Text = "Relatórios", Description = "Agenda, Procedimentos, Valor a receber, etc." },
+                //new Item { Id = 2, Text = "Relatórios", Description = "Agenda, Procedimentos, Valor a receber, etc." },
                 //new Item { Id = 3, Text = "Produtos", Description = "Cadastro e lista de produtos" },
             };
 
@@ -42,6 +43,7 @@ namespace DoctorVirtus.Aplicativo.Views
 
             switch (item.Id) {
                 case 1:
+                    Loading.Show();
                     Navigation.PushAsync(new ViewAgenda());
                     //NavigationPage
                     break;

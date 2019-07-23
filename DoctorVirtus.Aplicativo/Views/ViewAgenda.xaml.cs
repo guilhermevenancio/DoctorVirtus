@@ -27,12 +27,17 @@ namespace DoctorVirtus.Aplicativo.Views {
 
     public partial class ViewAgenda : TabbedPage {
 
-        public ViewModelAgenda ViewModelAgenda = new ViewModelAgenda();
+        public Agenda ViewModelAgenda = new Agenda();
+        
         public ObservableCollection<Imagem> ListImages = new ObservableCollection<Imagem>();
         public ObservableCollection<AgendaProcedimento> ListAgendaProcedimento = new ObservableCollection<AgendaProcedimento>();
 
 
         private List<Negociacao> Negociacao = new List<Negociacao>();
+
+
+        //private object ctrlLocalAtendimento;
+        //private object ctrlOperadora;
 
         public ViewAgenda() => InitializeComponent();
         
@@ -49,7 +54,9 @@ namespace DoctorVirtus.Aplicativo.Views {
                     CarregarDados();
 
                 });
-                
+
+                Loading.Hide();
+
             } catch (Exception ex) {
                 await DisplayAlert("Atenção", ex.Message, "Ok");
             }
@@ -70,52 +77,129 @@ namespace DoctorVirtus.Aplicativo.Views {
                 }
 
                 //CboLocalAtendimento.ItemsSource = LocalAtendimento;
-                Device.BeginInvokeOnMainThread(() => CboLocalAtendimento.ItemsSource = LocalAtendimento.ToList());
+                Device.BeginInvokeOnMainThread(() => CboLocalAtendimento.DataSource = LocalAtendimento.ToList());
 
             }
         }
 
-        private void Salvar() {
-            using (_ContextoSQLite Contexto = new _ContextoSQLite()) {
+        private async void Salvar() {
+            try
+            {
 
                 var LocalAtendimento = (LocalAtendimento)CboLocalAtendimento.SelectedItem;
                 var Operadora = (Operadora)CboOperadora.SelectedItem;
-                
-                ViewModelAgenda.Agenda.PrestadorID = App.PrestadorLogado.PrestadorID;
-                ViewModelAgenda.Agenda.Paciente_Nome = TxtPacienteNome.Text;
-                ViewModelAgenda.Agenda.LocalAtendimentoID = LocalAtendimento.LocalAtendimentoID;
-                ViewModelAgenda.Agenda.OperadoraID = Operadora.OperadoraID;
-                ViewModelAgenda.Agenda.DataInicial = DtpDataInicial.Date.Add(DtpHoraInicial.Time);
-                ViewModelAgenda.Agenda.Finalizado = true;
-                
-                Contexto.Agenda.Add(ViewModelAgenda.Agenda);
-                Contexto.SaveChanges();
-                
-                List<AgendaAnexo> AgendaAnexo = new List<AgendaAnexo>();
-                
-                /*foreach (AgendaProcedimento img in ListAgendaProcedimento) {
-                    AgendaAnexo.Add(new AgendaAnexo { AgendaID = ViewModelAgenda.Agenda.AgendaID, Arquivo = File.ReadAllBytes(img.CaminhoImagem) });
-                }*/
 
-                foreach (Imagem img in ListImages) {
-                    AgendaAnexo.Add(new AgendaAnexo { AgendaID = ViewModelAgenda.Agenda.AgendaID, Arquivo = File.ReadAllBytes(img.CaminhoImagem) });
+                if (TxtPacienteNome.Text.Trim() == "")
+                {
+                    await DisplayAlert("Atenção", "Infome o nome do paciente!", "Ok");
+                    return;
                 }
-                
+
+                if (LocalAtendimento == null)
+                {
+                    await DisplayAlert("Atenção", "Infome o local de atendimento!", "Ok");
+                    return;
+                }
+
+                if (Operadora == null)
+                {
+                    await DisplayAlert("Atenção", "Infome a operadora!", "Ok");
+                    return;
+                }
+
+                if (ListAgendaProcedimento.Count == 0)
+                {
+                    await DisplayAlert("Atenção", "Nenhum procedimento informado!", "Ok");
+                    return;
+                }
+
+                if (ListImages.Count == 0)
+                {
+                    await DisplayAlert("Atenção", "Nenhuma imagem informada!", "Ok");
+                    return;
+                }
+
+                using (_ContextoBD Contexto = new _ContextoBD())
+                {
+
+                    ViewModelAgenda.AgendaProcedimento.Clear();
+                    ViewModelAgenda.AgendaAnexo.Clear();
+
+                    
+
+                    ViewModelAgenda.PrestadorID = App.PrestadorLogado.PrestadorID;
+                    ViewModelAgenda.Paciente_Nome = TxtPacienteNome.Text;
+                    ViewModelAgenda.LocalAtendimentoID = LocalAtendimento.LocalAtendimentoID;
+                    ViewModelAgenda.OperadoraID = Operadora.OperadoraID;
+                    ViewModelAgenda.DataInicial = DtpDataInicial.Date.Add(DtpHoraInicial.Time);
+                    ViewModelAgenda.Finalizado = true;
+
+                    Contexto.Agenda.Add(ViewModelAgenda);
+                    Contexto.SaveChanges();
+
+                    List<AgendaProcedimento> AgendaProcedimento = new List<AgendaProcedimento>();
+                    List<AgendaAnexo> AgendaAnexo = new List<AgendaAnexo>();
+
+                    foreach (AgendaProcedimento item in ListAgendaProcedimento)
+                    {
+                        AgendaProcedimento.Add(new AgendaProcedimento
+                        {
+                            AgendaID = ViewModelAgenda.AgendaID,
+                            ProcedimentoID = item.ProcedimentoID,
+                            Valor = item.Valor
+                        });
+                    }
+
+                    foreach (Imagem img in ListImages)
+                    {
+                        AgendaAnexo.Add(new AgendaAnexo { AgendaID = ViewModelAgenda.AgendaID, Arquivo = File.ReadAllBytes(img.CaminhoImagem) });
+                    }
+
+                    Contexto.AgendaProcedimento.AddRange(AgendaProcedimento);
+                    Contexto.AgendaAnexo.AddRange(AgendaAnexo);
+
+                    Contexto.SaveChanges();
+
+                }
+
+                await DisplayAlert("Salvo com sucesso!", "", "OK");
+
+                await Navigation.PopAsync();
+
+            } catch (Exception ex)
+            {
+                await DisplayAlert("Ops!", ex.Message, "Cancelar");
             }
+            
         }
 
-        private void BtnAdicionarImagem_Clicked(object sender, EventArgs e) {
-
+        private async void BtnAdicionarImagem_Clicked(object sender, EventArgs e) {
             try {
+
+                var LocalAtendimento = CboLocalAtendimento.SelectedIndex;
+                var Operadora = CboOperadora.SelectedIndex;
+
                 UserDialogs.Instance.ActionSheet(new ActionSheetConfig()
                                 .Add("Câmera", TirarFoto, "icons8_camera_42.png")
                                 .Add("Galeria", EscolherFoto, "icons8_galeria_42.png")
                                 .SetCancel("Cancelar"));
 
+                CboLocalAtendimento.SelectedIndex = LocalAtendimento;
+                CboOperadora.SelectedIndex = Operadora;
+
             } catch (Exception ex) {
-                DisplayAlert("Ops!", ex.Message, "Cancelar");
+                await DisplayAlert("Ops!", ex.Message, "Cancelar");
             }
-            
+        }
+
+        private void BtnRemoverProcedimento_Clicked(object sender, EventArgs e)
+        {
+
+            var button = sender as Button;
+            var procedimento = button.BindingContext as AgendaProcedimento;
+            ListAgendaProcedimento.Remove(procedimento);
+
+            ListViewProcedimento.ItemsSource = ListAgendaProcedimento;
         }
 
         private void BtnRemoverImagem_Clicked(object sender, EventArgs e) {
@@ -151,131 +235,225 @@ namespace DoctorVirtus.Aplicativo.Views {
         }
 
         private async void EscolherFoto() {
+            try
+            {
+                await CrossMedia.Current.Initialize();
 
-            await CrossMedia.Current.Initialize();
-
-            if (!CrossMedia.Current.IsPickPhotoSupported) {
-                await DisplayAlert("Ops", "Galeria de fotos não suportada.", "OK");
-                return;
-            }
-
-            Loading.Show();
-
-            var file = await CrossMedia.Current.PickPhotoAsync(new PickMediaOptions() { ModalPresentationStyle = MediaPickerModalPresentationStyle.OverFullScreen });
-
-            Loading.Hide();
-
-            if (file == null) return;
-            ListImages.Add(new Imagem { CaminhoImagem = file.Path });
-
-            ListView.ItemsSource = ListImages;
-
-            file.Dispose();
-
-        }
-
-        private void CboLocalAtendimento_SelectedIndexChanged(object sender, EventArgs e) {
-
-            var item = (LocalAtendimento)CboLocalAtendimento.SelectedItem;
-
-            using (_ContextoSQLite Contexto = new _ContextoSQLite()) {
-
-                List<Operadora> Operadora = new List<Operadora>();
-
-                foreach (Negociacao row in Negociacao) {
-                    if (row.LocalAtendimentoID == item.LocalAtendimentoID) {
-                        Operadora.Add(row.Operadora);
-                    }
-                }
-
-                CboOperadora.SelectedItem = null;
-                CboOperadora.ItemsSource = Operadora.ToList();
-                
-                if (Operadora.Count == 1) {
-                    CboOperadora.SelectedIndex = 0;
-                    CboOperadora_SelectedIndexChanged(null, null);
-                }
-            }
-        }
-
-        private void CboOperadora_SelectedIndexChanged(object sender, EventArgs e) {
-
-            var LocalAtendimento = (LocalAtendimento)CboLocalAtendimento.SelectedItem;
-            var Operadora = (Operadora)CboOperadora.SelectedItem;
-
-            if (Operadora == null) return;
-
-            var item = Negociacao.FirstOrDefault(c => c.LocalAtendimentoID == LocalAtendimento.LocalAtendimentoID && c.OperadoraID == Operadora.OperadoraID);
-
-            TxtTabela.Text = item.Tabela.Descricao;
-
-        }
-
-        private async void TxtProcedimentoID_Unfocused(object sender, FocusEventArgs e) {
-
-            try {
-
-                if (TxtProcedimentoID.Text.Trim() == "") {
-                    TxtValorProcedimento.Text = "";
+                if (!CrossMedia.Current.IsPickPhotoSupported)
+                {
+                    await DisplayAlert("Ops", "Galeria de fotos não suportada.", "OK");
                     return;
                 }
 
+                Loading.Show();
+
+                using (MediaFile file = await CrossMedia.Current.PickPhotoAsync(new PickMediaOptions() { ModalPresentationStyle = MediaPickerModalPresentationStyle.FullScreen }))
+                {
+                    Loading.Hide();
+
+                    if (file == null) return;
+                    ListImages.Add(new Imagem { CaminhoImagem = file.Path });
+
+                    ListView.ItemsSource = ListImages;
+                }
+                
+            } catch (Exception ex)
+            {
+                await DisplayAlert("Atenção", ex.Message, "Ok");
+            }
+
+        }
+
+        private void CboLocalAtendimento_SelectionChanged(object sender, Syncfusion.XForms.ComboBox.SelectionChangedEventArgs e)
+        {
+            try
+            {
+                var item = (LocalAtendimento)CboLocalAtendimento.SelectedItem;
+
+                if (item == null)
+                {
+                    //CboLocalAtendimento.SelectedItem = ctrlLocalAtendimento;
+                    //CboOperadora.SelectedItem = ctrlOperadora;
+                    return;
+                }
+
+                using (_ContextoSQLite Contexto = new _ContextoSQLite())
+                {
+
+                    List<Operadora> Operadora = new List<Operadora>();
+
+                    foreach (Negociacao row in Negociacao)
+                    {
+                        if (row.LocalAtendimentoID == item.LocalAtendimentoID)
+                        {
+                            Operadora.Add(row.Operadora);
+                        }
+                    }
+
+                    CboOperadora.SelectedItem = null;
+                    CboOperadora.DataSource = Operadora.ToList();
+
+                    if (Operadora.Count == 1)
+                    {
+                        CboOperadora.SelectedIndex = 0;
+                        Operadora_SelectionChanged(null, null);
+                    }
+                }
+
+                //ctrlLocalAtendimento = CboLocalAtendimento.SelectedItem;
+
+            } catch (Exception ex)
+            {
+                DisplayAlert("Atenção", ex.Message, "Ok");
+            }
+            
+        }
+
+        private void Operadora_SelectionChanged(object sender, Syncfusion.XForms.ComboBox.SelectionChangedEventArgs e)
+        {
+            try
+            {
                 var LocalAtendimento = (LocalAtendimento)CboLocalAtendimento.SelectedItem;
                 var Operadora = (Operadora)CboOperadora.SelectedItem;
-                var Tabela = Negociacao.FirstOrDefault(c => c.LocalAtendimentoID == LocalAtendimento.LocalAtendimentoID && c.OperadoraID == Operadora.OperadoraID);
-                
-                StringBuilder query = new StringBuilder();
-                
-                query.AppendLine("SELECT");
-                query.AppendLine("    Procedimento.Descricao");
-                query.AppendLine("  , ProcedimentoItem.QuantidadeCH_UCO");
-                query.AppendLine("  , Negociacao.ValorCH_UCO");
-                query.AppendLine("  , ProcedimentoItem.QuantidadeCH_UCO * Negociacao.ValorCH_UCO AS ValorProcedimento");
-                query.AppendLine("FROM Procedimento");
-                query.AppendLine("LEFT JOIN ProcedimentoItem ON Procedimento.ProcedimentoID = ProcedimentoItem.ProcedimentoID");
-                query.AppendLine("INNER JOIN Negociacao ON Negociacao.PrestadorID = @PrestadorID AND Negociacao.LocalAtendimentoID = @LocalAtendimentoID AND Negociacao.OperadoraID = @OperadoraID");
-                query.AppendLine("WHERE Procedimento.CodigoTUSS = @Referencia AND ProcedimentoItem.TabelaID = @TabelaID");
-                
-                DataSet ds = await Database.SQLite(query.ToString(), new object[,] {
-                    {"@Referencia", TxtProcedimentoID.Text},
-                    {"@LocalAtendimentoID", LocalAtendimento.LocalAtendimentoID},
-                    {"@OperadoraID", Operadora.OperadoraID},
-                    {"@TabelaID", Tabela.TabelaID},
-                    {"@PrestadorID", App.PrestadorLogado.PrestadorID}
-                });
-                
-                TxtValorProcedimento.Text = string.Format("{0:0,0.00}", Math.Round(Convert.ToDecimal(ds.Tables[0].Rows[0]["ValorProcedimento"]), 2));
-                TxtProcedimentoDescricao.Text = ds.Tables[0].Rows[0]["Descricao"].ToString();
-                
+
+                if (Operadora == null) return;
+
+                var item = Negociacao.FirstOrDefault(c => c.LocalAtendimentoID == LocalAtendimento.LocalAtendimentoID && c.OperadoraID == Operadora.OperadoraID);
+
+                TxtTabela.Text = item.Tabela.Descricao;
+
+                //ctrlOperadora = CboOperadora.SelectedItem;
+
+            }
+            catch (Exception ex)
+            {
+                DisplayAlert("Atenção", ex.Message, "Ok");
+            }
+        }
+
+        private async void TxtProcedimentoID_Unfocused(object sender, FocusEventArgs e) {
+            try {
+
+                await ProcurarProcedimento();
+
             } catch (Exception ex) {
                 await DisplayAlert("Atenção", ex.Message, "Ok");
             }
         }
 
-        private void BtnAdicionarProcedimento_Clicked(object sender, EventArgs e) {
+        private async Task ProcurarProcedimento()
+        {
+            if (TxtCodigoTUSS.Text.Trim() == "")
+            {
+                TxtValorProcedimento.Text = "";
+                return;
+            }
 
-            TxtProcedimentoID.Text = "";
-            TxtValorProcedimento.Text = "";
-            TxtProcedimentoDescricao.Text = "";
+            var LocalAtendimento = (LocalAtendimento)CboLocalAtendimento.SelectedItem;
+            var Operadora = (Operadora)CboOperadora.SelectedItem;
 
 
-            ListAgendaProcedimento.Add(new AgendaProcedimento() { AgendaID = null, ProcedimentoID = Convert.ToInt32(TxtProcedimentoID.Text), Procedimento = new Procedimento() { Descricao = TxtProcedimentoDescricao.Text}, Valor = Convert.ToDecimal(TxtValorProcedimento.Text) });
-            ListViewProcedimento.ItemsSource = ListAgendaProcedimento;
+            if (LocalAtendimento == null)
+                return;
+   
+            if (Operadora == null)
+                return;
+         
+
+            var Tabela = Negociacao.FirstOrDefault(c => c.LocalAtendimentoID == LocalAtendimento.LocalAtendimentoID && c.OperadoraID == Operadora.OperadoraID);
+
+            StringBuilder query = new StringBuilder();
+
+            query.AppendLine("SELECT");
+            query.AppendLine("    Procedimento.ProcedimentoID");
+            query.AppendLine("  , Procedimento.Descricao");
+            query.AppendLine("  , ProcedimentoItem.QuantidadeCH_UCO");
+            query.AppendLine("  , Negociacao.ValorCH_UCO");
+            query.AppendLine("  , ProcedimentoItem.QuantidadeCH_UCO * Negociacao.ValorCH_UCO AS ValorProcedimento");
+            query.AppendLine("FROM Procedimento");
+            query.AppendLine("LEFT JOIN ProcedimentoItem ON Procedimento.ProcedimentoID = ProcedimentoItem.ProcedimentoID");
+            query.AppendLine("INNER JOIN Negociacao ON Negociacao.PrestadorID = @PrestadorID AND Negociacao.LocalAtendimentoID = @LocalAtendimentoID AND Negociacao.OperadoraID = @OperadoraID");
+            query.AppendLine("WHERE Procedimento.CodigoTUSS = @Referencia AND ProcedimentoItem.TabelaID = @TabelaID");
+
+            DataSet ds = await Database.SQLite(query.ToString(), new object[,] {
+                    {"@Referencia", TxtCodigoTUSS.Text},
+                    {"@LocalAtendimentoID", LocalAtendimento.LocalAtendimentoID},
+                    {"@OperadoraID", Operadora.OperadoraID},
+                    {"@TabelaID", Tabela.TabelaID},
+                    {"@PrestadorID", App.PrestadorLogado.PrestadorID}
+                });
+
+            TxtProcedimentoID.Text = ds.Tables[0].Rows[0]["ProcedimentoID"].ToString();
+            TxtValorProcedimento.Text = string.Format("{0:0,0.00}", Math.Round(Convert.ToDecimal(ds.Tables[0].Rows[0]["ValorProcedimento"]), 2));
+            TxtProcedimentoDescricao.Text = ds.Tables[0].Rows[0]["Descricao"].ToString();
+            
+
         }
 
+        private async void BtnAdicionarProcedimento_Clicked(object sender, EventArgs e) {
+            try
+            {
+
+                await ProcurarProcedimento();
 
 
-    }
+                var LocalAtendimento = (LocalAtendimento)CboLocalAtendimento.SelectedItem;
+                var Operadora = (Operadora)CboOperadora.SelectedItem;
 
-    /*public class Procedimento {
-        public string Descricao;
-        public decimal? QuantidadeCH_UCO = 0;
-        public decimal? ValorCH_UCO = 0;
-        public decimal? ValorProcedimento = 0;
-    }*/
+                if (LocalAtendimento == null)
+                {
+                    await DisplayAlert("Atenção", "Informe o local de atendimento!", "Ok");
+                    return;
+                }
 
-    public class ViewModelAgenda {
-        public Agenda Agenda = new Agenda();
+                if (Operadora == null)
+                {
+                    await DisplayAlert("Atenção", "Informe a operadora!", "Ok");
+                    return;
+                }
+
+                if (TxtCodigoTUSS.Text == "")
+                {
+                    await DisplayAlert("Atenção", "Informe o código TUSS do procedimento!", "Ok");
+                    TxtCodigoTUSS.Focus();
+                    return;
+                }
+
+                if (TxtValorProcedimento.Text == "")
+                {
+                    await DisplayAlert("Atenção", "Informe o valor do procedimento!", "Ok");
+                    TxtValorProcedimento.Focus();
+                    return;
+                }
+
+                var answer = await DisplayAlert("Deseja incluir?", TxtProcedimentoDescricao.Text, "SIM", "NÃO");
+                if (!answer)
+                {
+                    return;
+                }
+
+                ListAgendaProcedimento.Add(new AgendaProcedimento() { AgendaID = null, ProcedimentoID = Convert.ToInt32(TxtProcedimentoID.Text), Procedimento = new Procedimento() { Descricao = TxtProcedimentoDescricao.Text }, Valor = Convert.ToDecimal(TxtValorProcedimento.Text) });
+                ListViewProcedimento.ItemsSource = ListAgendaProcedimento;
+
+
+                TxtProcedimentoID.Text = "";
+                TxtCodigoTUSS.Text = "";
+                TxtProcedimentoDescricao.Text = "";
+                TxtValorProcedimento.Text = "";
+
+
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Atenção", ex.Message, "Ok");
+            }
+        }
+
+        private void ToolbarItem_Clicked(object sender, EventArgs e)
+        {
+            Salvar();
+        }
+        
     }
 
     public class Imagem {

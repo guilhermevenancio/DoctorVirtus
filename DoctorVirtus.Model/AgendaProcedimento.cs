@@ -19,7 +19,7 @@ public partial class AgendaProcedimento
     [NotMapped]
     public string ItemDescricao {
         get {
-            return ProcedimentoID + " - " + Procedimento.Descricao;
+            return Procedimento.CodigoTUSS + " - " + Procedimento.Descricao;
         }
     }
 }

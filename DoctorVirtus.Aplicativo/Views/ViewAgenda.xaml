@@ -1,16 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
             xmlns:combobox="clr-namespace:Syncfusion.XForms.ComboBox;assembly=Syncfusion.SfComboBox.XForms"
-            xmlns:ListCollection="clr-namespace:System.Collections.Generic;assembly=mscorlib"
             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
             xmlns:controls="clr-namespace:SuaveControls.Views;assembly=SuaveControls.FloatingActionButton"
             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
             xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
+            xmlns:button="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
             x:Class="DoctorVirtus.Aplicativo.Views.ViewAgenda"
             Title="Agenda">
 
     <TabbedPage.ToolbarItems>
-        <ToolbarItem Text="Salvar"/>
+        <ToolbarItem Text="Salvar" Clicked="ToolbarItem_Clicked"/>
     </TabbedPage.ToolbarItems>
 
     <ContentPage Title="Principal">
@@ -20,14 +20,17 @@
                 <Entry x:Name="TxtPacienteNome" Text="" />
             </inputLayout:SfTextInputLayout>
 
-
+            
+            
             <Label Text="Local de atendimento"></Label>
-            <Picker x:Name="CboLocalAtendimento" Title="Local de atendimento" ItemDisplayBinding="{Binding RazaoSocial}" SelectedIndex="0" SelectedIndexChanged="CboLocalAtendimento_SelectedIndexChanged" />
+            <combobox:SfComboBox HeightRequest="40" x:Name="CboLocalAtendimento" ShowBorder="False" DisplayMemberPath="RazaoSocial" SelectionChanged="CboLocalAtendimento_SelectionChanged" />
+                
 
 
             <Label Text="Operadora"></Label>
-            <Picker x:Name="CboOperadora" Title="Operadora" ItemDisplayBinding="{Binding Descricao}" SelectedIndex="0" SelectedIndexChanged="CboOperadora_SelectedIndexChanged" />
-
+            <combobox:SfComboBox HeightRequest="40" x:Name="CboOperadora" ShowBorder="False" DisplayMemberPath="Descricao" SelectionChanged="Operadora_SelectionChanged" />
+          
+            
 
             <inputLayout:SfTextInputLayout Hint="Tabela" >
                 <Entry x:Name="TxtTabela" Text="" IsReadOnly="True" />
@@ -59,49 +62,66 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="20" />
                     <RowDefinition Height="38" />
+                    <RowDefinition Height="38" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="50" />
                 </Grid.ColumnDefinitions>
 
                 <Label Text="Procedimento" Grid.Row="0" Grid.Column="0"></Label>
-                <Entry x:Name="TxtProcedimentoID" Grid.Row="1" Grid.Column="0" Text="" HeightRequest="45" Keyboard="Numeric" Unfocused="TxtProcedimentoID_Unfocused" />
+                <Entry x:Name="TxtCodigoTUSS" Grid.Row="1" Grid.Column="0" Text="" HeightRequest="45" Keyboard="Numeric" Unfocused="TxtProcedimentoID_Unfocused" />
+
+                <Entry IsVisible="False" x:Name="TxtProcedimentoID" />
+                <Entry IsVisible="False" x:Name="TxtProcedimentoDescricao" />
 
                 <Label Text="Valor" Grid.Row="0" Grid.Column="1"></Label>
-                <Entry x:Name="TxtValorProcedimento" Grid.Row="1" Grid.Column="1" Text="" HeightRequest="45" IsReadOnly="True" HorizontalTextAlignment="End" />
+                <Entry x:Name="TxtValorProcedimento" Grid.Row="1" Grid.Column="1" Text="" HeightRequest="45" IsReadOnly="True" />
 
+                <button:SfButton Grid.Row="1" Grid.Column="2" Text="+" BackgroundColor="DeepSkyBlue" CornerRadius="12" Clicked="BtnAdicionarProcedimento_Clicked" />
+
+                
             </Grid>
 
-            <Editor x:Name="TxtProcedimentoDescricao" Text="" HeightRequest="100" />
+            <StackLayout Padding="10">
+                <ListView x:Name="ListViewProcedimento" RowHeight="70">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
 
-            <StackLayout HorizontalOptions="End">
-                <Button Text="+" BackgroundColor="DeepSkyBlue" Clicked="BtnAdicionarProcedimento_Clicked"></Button>
+                                <StackLayout>
+                                    <StackLayout Orientation="Horizontal">
+                                        
+                                        <Label Text="{Binding ItemDescricao}" HorizontalOptions="StartAndExpand"></Label>
+
+                                        
+                                        <Button
+                                            VerticalOptions="CenterAndExpand"
+                                            HorizontalOptions="EndAndExpand" 
+                                            BackgroundColor="Red" 
+                                            TextColor="White" 
+                                            Text="-"
+                                            CornerRadius="12"
+                                            WidthRequest="35"
+                                            HeightRequest="35"
+                                            Clicked="BtnRemoverProcedimento_Clicked" />
+
+
+                                    </StackLayout>
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="R$" HorizontalOptions="Start"></Label>
+                                        <Label Text="{Binding Valor}" HorizontalOptions="StartAndExpand"></Label>
+                                    </StackLayout>
+                                </StackLayout>
+
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
             </StackLayout>
 
-            <ListView x:Name="ListViewProcedimento" RowHeight="50">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-
-                            <StackLayout>
-                                <StackLayout Orientation="Horizontal">
-                                    <Label Text="{Binding ItemDescricao}" HorizontalOptions="StartAndExpand"></Label>
-                                    <Button HorizontalOptions="EndAndExpand" 
-                                        BackgroundColor="Red" 
-                                        TextColor="Blue" 
-                                        Text="-" />
-                                </StackLayout>
-                                <StackLayout Orientation="Horizontal">
-                                    <Label Text="R$" HorizontalOptions="Start"></Label>
-                                    <Label Text="{Binding Valor}" HorizontalOptions="StartAndExpand"></Label>
-                                </StackLayout>
-                            </StackLayout>
-
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+            
 
         </StackLayout>
     </ContentPage>
@@ -129,10 +149,16 @@
                                         <Button
                                             VerticalOptions="CenterAndExpand"
                                             HorizontalOptions="EndAndExpand" 
-                                            BackgroundColor="White" 
-                                            TextColor="Blue" 
-                                            Text="Remover" 
+                                            BackgroundColor="Red" 
+                                            TextColor="White" 
+                                            Text="-"
+                                            CornerRadius="12"
+                                            WidthRequest="35"
+                                            HeightRequest="35"
                                             Clicked="BtnRemoverImagem_Clicked" />
+
+
+
 
                                     </StackLayout>
                                 </ViewCell>
