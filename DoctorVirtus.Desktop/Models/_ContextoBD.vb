@@ -29,9 +29,6 @@ Public Class _ContextoBD
     Public Overridable Property Tabela As DbSet(Of Tabela)
     Public Overridable Property Usuario As DbSet(Of Usuario)
 
-    Public Overridable Property wversao As DbSet(Of wversao)
-    Public Overridable Property wcaixabvs As DbSet(Of wcaixabvs)
-    Public Overridable Property wcaixatransp As DbSet(Of wcaixatransp)
 
     Protected Overrides Sub OnModelCreating(ByVal modelBuilder As DbModelBuilder)
         MyBase.OnModelCreating(modelBuilder)
@@ -45,16 +42,6 @@ Public Class _ContextoBD
             .HasPrecision(18, 4)
 
 
-
-
-
-
-        modelBuilder.Entity(Of wcaixabvs)() _
-            .Property(Function(e) e.valor) _
-            .HasPrecision(12, 2)
-        modelBuilder.Entity(Of wcaixatransp)() _
-            .Property(Function(e) e.valor) _
-            .HasPrecision(12, 2)
 
     End Sub
 
