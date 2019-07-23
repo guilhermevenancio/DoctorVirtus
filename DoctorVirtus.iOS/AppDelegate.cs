@@ -1,4 +1,6 @@
-﻿using DoctorVirtus.Aplicativo;
+using Syncfusion.XForms.iOS.ComboBox;
+using Syncfusion.XForms.iOS.TextInputLayout;
+using DoctorVirtus.Aplicativo;
 using Foundation;
 using UIKit;
 
