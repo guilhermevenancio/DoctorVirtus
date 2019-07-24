@@ -3,6 +3,7 @@ using Xamarin.Forms.Xaml;
 using AtlantaMobile.Models;
 using System.Collections.Generic;
 using DoctorVirtus.Aplicativo.Plugins;
+using System.Threading.Tasks;
 
 namespace DoctorVirtus.Aplicativo.Views
 {
@@ -34,17 +35,19 @@ namespace DoctorVirtus.Aplicativo.Views
             //if (viewModel.Items.Count == 0) viewModel.LoadItemsCommand.Execute(null);
         }
 
-        private void ListView_ItemTapped(object sender, ItemTappedEventArgs e)
+        private async void ListView_ItemTapped(object sender, ItemTappedEventArgs e)
         {
 
             if (e.Item == null) return;
 
             Item item = (Item)e.Item;
 
-            switch (item.Id) {
+            switch (item.Id)
+            {
                 case 1:
-                    Loading.Show();
-                    Navigation.PushAsync(new ViewAgenda());
+
+                    await Navigation.PushAsync(new ViewAgenda(), true);
+                    
                     //NavigationPage
                     break;
                 case 2:
@@ -54,7 +57,6 @@ namespace DoctorVirtus.Aplicativo.Views
                     //case 3
                     break;
             }
-
             
             ListView.SelectedItem = null;
 

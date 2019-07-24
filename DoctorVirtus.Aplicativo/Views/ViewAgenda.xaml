@@ -6,6 +6,7 @@
             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
             xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
             xmlns:button="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+            xmlns:dataForm="clr-namespace:Syncfusion.XForms.DataForm;assembly=Syncfusion.SfDataForm.XForms"
             x:Class="DoctorVirtus.Aplicativo.Views.ViewAgenda"
             Title="Agenda">
 
@@ -14,44 +15,55 @@
     </TabbedPage.ToolbarItems>
 
     <ContentPage Title="Principal">
-        <StackLayout Padding="10">
 
-            <inputLayout:SfTextInputLayout Hint="Nome do paciente" >
-                <Entry x:Name="TxtPacienteNome" Text="" />
-            </inputLayout:SfTextInputLayout>
+        <ScrollView Padding="10">
+            <StackLayout>
 
-            
-            
-            <Label Text="Local de atendimento"></Label>
-            <combobox:SfComboBox HeightRequest="40" x:Name="CboLocalAtendimento" ShowBorder="False" DisplayMemberPath="RazaoSocial" SelectionChanged="CboLocalAtendimento_SelectionChanged" />
+                <inputLayout:SfTextInputLayout Hint="Número do cartão" >
+                    <Entry x:Name="TxtNumeroCartao" Text="" />
+                </inputLayout:SfTextInputLayout>
+
+                <inputLayout:SfTextInputLayout Hint="Senha liberação" >
+                    <Entry x:Name="TxtSenha" Text="" />
+                </inputLayout:SfTextInputLayout>
+
+
+                <inputLayout:SfTextInputLayout Hint="Nome do paciente" >
+                    <Entry x:Name="TxtPacienteNome" Text="" />
+                </inputLayout:SfTextInputLayout>
+
+
+
+                <Label Text="Local de atendimento"></Label>
+                <combobox:SfComboBox HeightRequest="40" x:Name="CboLocalAtendimento" ShowBorder="False" DisplayMemberPath="RazaoSocial" SelectionChanged="CboLocalAtendimento_SelectionChanged" />
+
+
+
+                <Label Text="Operadora"></Label>
+                <combobox:SfComboBox HeightRequest="40" x:Name="CboOperadora" ShowBorder="False" DisplayMemberPath="Descricao" SelectionChanged="Operadora_SelectionChanged" />
+
+
+
+                <inputLayout:SfTextInputLayout Hint="Tabela" >
+                    <Entry x:Name="TxtTabela" Text="" IsReadOnly="True" />
+                </inputLayout:SfTextInputLayout>
+
+
+
+                <Grid>
+                    <inputLayout:SfTextInputLayout Grid.Row="0" Grid.Column="0" Hint="Data" >
+                        <DatePicker x:Name="DtpDataInicial"></DatePicker>
+                    </inputLayout:SfTextInputLayout>
+
+                    <inputLayout:SfTextInputLayout Grid.Row="0" Grid.Column="1" Hint="Horário" >
+                        <TimePicker x:Name="DtpHoraInicial"></TimePicker>
+                    </inputLayout:SfTextInputLayout>
+
+                </Grid>
                 
-
-
-            <Label Text="Operadora"></Label>
-            <combobox:SfComboBox HeightRequest="40" x:Name="CboOperadora" ShowBorder="False" DisplayMemberPath="Descricao" SelectionChanged="Operadora_SelectionChanged" />
-          
-            
-
-            <inputLayout:SfTextInputLayout Hint="Tabela" >
-                <Entry x:Name="TxtTabela" Text="" IsReadOnly="True" />
-            </inputLayout:SfTextInputLayout>
-
-
-            <Grid>
-                <Label Grid.Row="0" Grid.Column="0" Text="Data"></Label>
-                <DatePicker x:Name="DtpDataInicial" Grid.Row="1" Grid.Column="0"></DatePicker>
-
-                <Label Grid.Row="0" Grid.Column="1" Text="Horário"></Label>
-                <TimePicker x:Name="DtpHoraInicial" Grid.Row="1" Grid.Column="1"></TimePicker>
-            </Grid>
-
-
-            <inputLayout:SfTextInputLayout Hint="Senha liberação" >
-                <Entry x:Name="TxtSenha" Text="" />
-            </inputLayout:SfTextInputLayout>
-
-
-        </StackLayout>
+            </StackLayout>
+        </ScrollView>
+        
     </ContentPage>
 
     <ContentPage Title="Procedimentos">

@@ -19,6 +19,7 @@
     <PackageReference Include="SuaveControls.FloatingActionButton" Version="2018.1.5" />
     <PackageReference Include="Syncfusion.Xamarin.Buttons" Version="17.2.0.35" />
     <PackageReference Include="Syncfusion.Xamarin.SfComboBox" Version="17.2.0.35" />
+    <PackageReference Include="Syncfusion.Xamarin.SfDataForm" Version="17.2.0.35" />
     <PackageReference Include="System.Data.SqlClient" Version="4.6.0" />
     <PackageReference Include="System.Data.SQLite" Version="1.0.110" />
     <PackageReference Include="System.Linq" Version="4.3.0" />

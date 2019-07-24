@@ -85,9 +85,21 @@ namespace DoctorVirtus.Aplicativo.Views {
         private async void Salvar() {
             try
             {
-
+                
                 var LocalAtendimento = (LocalAtendimento)CboLocalAtendimento.SelectedItem;
                 var Operadora = (Operadora)CboOperadora.SelectedItem;
+
+                if (TxtNumeroCartao.Text.Trim() == "")
+                {
+                    await DisplayAlert("Atenção", "Infome o número do cartão do paciente!", "Ok");
+                    return;
+                }
+
+                if (TxtSenha.Text.Trim() == "")
+                {
+                    await DisplayAlert("Atenção", "Infome a senha de liberação!", "Ok");
+                    return;
+                }
 
                 if (TxtPacienteNome.Text.Trim() == "")
                 {
@@ -119,56 +131,69 @@ namespace DoctorVirtus.Aplicativo.Views {
                     return;
                 }
 
-                using (_ContextoBD Contexto = new _ContextoBD())
-                {
+                Loading.Show("Salvando");
 
-                    ViewModelAgenda.AgendaProcedimento.Clear();
-                    ViewModelAgenda.AgendaAnexo.Clear();
+                await Task.Run(() => {
 
-                    
-
-                    ViewModelAgenda.PrestadorID = App.PrestadorLogado.PrestadorID;
-                    ViewModelAgenda.Paciente_Nome = TxtPacienteNome.Text;
-                    ViewModelAgenda.LocalAtendimentoID = LocalAtendimento.LocalAtendimentoID;
-                    ViewModelAgenda.OperadoraID = Operadora.OperadoraID;
-                    ViewModelAgenda.DataInicial = DtpDataInicial.Date.Add(DtpHoraInicial.Time);
-                    ViewModelAgenda.Finalizado = true;
-
-                    Contexto.Agenda.Add(ViewModelAgenda);
-                    Contexto.SaveChanges();
-
-                    List<AgendaProcedimento> AgendaProcedimento = new List<AgendaProcedimento>();
-                    List<AgendaAnexo> AgendaAnexo = new List<AgendaAnexo>();
-
-                    foreach (AgendaProcedimento item in ListAgendaProcedimento)
+                    using (_ContextoBD Contexto = new _ContextoBD())
                     {
-                        AgendaProcedimento.Add(new AgendaProcedimento
+
+                        ViewModelAgenda.AgendaProcedimento.Clear();
+                        ViewModelAgenda.AgendaAnexo.Clear();
+
+
+                        ViewModelAgenda.NumeroCartao = TxtNumeroCartao.Text;
+                        ViewModelAgenda.SenhaLiberacao = TxtSenha.Text;
+                        ViewModelAgenda.PrestadorID = App.PrestadorLogado.PrestadorID;
+                        ViewModelAgenda.Paciente_Nome = TxtPacienteNome.Text;
+                        ViewModelAgenda.LocalAtendimentoID = LocalAtendimento.LocalAtendimentoID;
+                        ViewModelAgenda.OperadoraID = Operadora.OperadoraID;
+                        ViewModelAgenda.DataInicial = DtpDataInicial.Date.Add(DtpHoraInicial.Time);
+                        ViewModelAgenda.Finalizado = true;
+
+
+                        Contexto.Agenda.Add(ViewModelAgenda);
+                        Contexto.SaveChanges();
+
+                        List<AgendaProcedimento> AgendaProcedimento = new List<AgendaProcedimento>();
+                        List<AgendaAnexo> AgendaAnexo = new List<AgendaAnexo>();
+
+                        foreach (AgendaProcedimento item in ListAgendaProcedimento)
                         {
-                            AgendaID = ViewModelAgenda.AgendaID,
-                            ProcedimentoID = item.ProcedimentoID,
-                            Valor = item.Valor
-                        });
+                            AgendaProcedimento.Add(new AgendaProcedimento
+                            {
+                                AgendaID = ViewModelAgenda.AgendaID,
+                                ProcedimentoID = item.ProcedimentoID,
+                                Valor = item.Valor
+                            });
+                        }
+
+                        foreach (Imagem img in ListImages)
+                        {
+                            AgendaAnexo.Add(new AgendaAnexo { AgendaID = ViewModelAgenda.AgendaID, Arquivo = File.ReadAllBytes(img.CaminhoImagem) });
+                        }
+
+                        Contexto.AgendaProcedimento.AddRange(AgendaProcedimento);
+                        Contexto.AgendaAnexo.AddRange(AgendaAnexo);
+
+                        Contexto.SaveChanges();
+
                     }
 
-                    foreach (Imagem img in ListImages)
-                    {
-                        AgendaAnexo.Add(new AgendaAnexo { AgendaID = ViewModelAgenda.AgendaID, Arquivo = File.ReadAllBytes(img.CaminhoImagem) });
-                    }
+                });
 
-                    Contexto.AgendaProcedimento.AddRange(AgendaProcedimento);
-                    Contexto.AgendaAnexo.AddRange(AgendaAnexo);
 
-                    Contexto.SaveChanges();
-
-                }
-
-                await DisplayAlert("Salvo com sucesso!", "", "OK");
+                await DisplayAlert("Sucesso", "Salvo com sucesso!", "OK");
 
                 await Navigation.PopAsync();
 
             } catch (Exception ex)
             {
                 await DisplayAlert("Ops!", ex.Message, "Cancelar");
+            }
+            finally
+            {
+                Loading.Hide();
             }
             
         }
