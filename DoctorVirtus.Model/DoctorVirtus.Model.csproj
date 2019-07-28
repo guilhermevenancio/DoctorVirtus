@@ -35,9 +35,6 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="wcaixatransp.cs" />
-    <Compile Include="wcaixabvs.cs" />
-    <Compile Include="wversao.cs" />
     <Compile Include="Agenda.cs" />
     <Compile Include="AgendaAnexo.cs" />
     <Compile Include="AgendaProcedimento.cs" />

@@ -34,6 +34,12 @@ public class Agenda
     [StringLength(200)]
     public string Observacao { get; set; }
 
+    [StringLength(200)]
+    public string NumeroCartao { get; set; }
+
+    [StringLength(200)]
+    public string SenhaLiberacao { get; set; }
+
     public bool? Finalizado { get; set; } = false;
 
     public virtual Prestador Prestador { get; set; }
